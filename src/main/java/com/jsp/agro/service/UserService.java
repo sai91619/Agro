@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jsp.agro.DAO.UserDAO;
 import com.jsp.agro.entity.User;
@@ -88,37 +89,7 @@ public class UserService {
 		}
 	}
 	public ResponseEntity<ResponseStructure<User>> updateUser(User user) {
-		User u = dao.findById(user.getId());
-		if(user.getId()!=0) {
-			u.setId(user.getId());
-		}
-		if(user.getFirstName()!=null) {
-			u.setFirstName(user.getFirstName());
-		}
-		if(user.getLastName()!=null) {
-			u.setLastName(user.getLastName());
-		}
-		if(user.getEmail()!=null) {
-			u.setEmail(user.getEmail());
-		}
-		if(user.getPhone()!=0) {
-			u.setPhone(user.getPhone());
-		}
-		if(user.getPassword()!=null) {
-			u.setPassword(user.getPassword());
-		}
-		if(user.getAge()!=0) {
-			u.setAge(user.getAge());
-		}
-		if(user.getGender()!=null) {
-			u.setGender(user.getGender());
-		}
-		if(user.getAddress()!=null) {
-			u.setAddress(user.getAddress());
-		}
-		if(user.getType()!=null) {
-			u.setType(user.getType());
-		}
+		User u=dao.updateUser(user);
 		rs.setMessage("Update Successfull");
 		rs.setStatus(HttpStatus.ACCEPTED.value());
 		rs.setData(u);
