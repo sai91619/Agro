@@ -3,7 +3,9 @@ package com.jsp.agro.service;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,13 +56,13 @@ public class ImageService {
 		rs.setData(image);
 		return new ResponseEntity<ResponseStructure<Image>>(rs,HttpStatus.ACCEPTED);
 	}
-	public ResponseEntity<ResponseStructure<Image>> fetchImageById(int id){
+	public ResponseEntity<byte[]> fetchImageById(int id){
 		Image image=dao.fetchImageById(id);
 		if(image!=null) {
-			rs.setMessage("Image fetched successfully");
-			rs.setStatus(HttpStatus.FOUND.value());
-			rs.setData(image);
-			return new ResponseEntity<ResponseStructure<Image>>(rs,HttpStatus.FOUND);
+			byte[] imageBytes= image.getData();
+			HttpHeaders headers= new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
+			return new ResponseEntity<>(imageBytes,headers,HttpStatus.FOUND);
 		}
 		else {
 			throw new ImageNotFoundException("Image not found with id: "+id);

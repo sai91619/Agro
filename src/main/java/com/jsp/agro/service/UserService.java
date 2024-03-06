@@ -113,7 +113,6 @@ public class UserService {
 		SimpleMailMessage message= new SimpleMailMessage();
 		User u=dao.findByEmail(email);
 		if(u!=null) {
-		
 			message.setFrom("saikiran.nagineni@gmail.com");
 			message.setTo(email);
 			message.setSubject("OTP to change Password");
