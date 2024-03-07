@@ -1,5 +1,6 @@
 package com.jsp.agro.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private Date date;
+	private LocalDateTime date;
 	private String caption;
 	private String location;
 	@OneToOne(cascade = CascadeType.ALL)

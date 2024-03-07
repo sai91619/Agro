@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.jsp.agro.exception.EmailNotFoundException;
 import com.jsp.agro.exception.ImageNotFoundException;
 import com.jsp.agro.exception.IncorrectPasswordException;
+import com.jsp.agro.exception.PostNotFoundException;
 import com.jsp.agro.exception.UserAlreadyExistException;
 import com.jsp.agro.exception.UserNotFoundException;
 import com.jsp.agro.util.ResponseStructure;
@@ -46,6 +47,13 @@ public class UserExceptionHandler {
 	}
 	@ExceptionHandler(ImageNotFoundException.class)
 	public ResponseEntity<ResponseStructure<String>> invalidImage(ImageNotFoundException e) {
+		rs.setMessage("Invalid Id");
+		rs.setStatus(HttpStatus.NOT_FOUND.value());
+		rs.setData(e.getMessage());
+		return new ResponseEntity<ResponseStructure<String>>(rs,HttpStatus.NOT_FOUND);
+	}
+	@ExceptionHandler(PostNotFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> invalidPost(PostNotFoundException e) {
 		rs.setMessage("Invalid Id");
 		rs.setStatus(HttpStatus.NOT_FOUND.value());
 		rs.setData(e.getMessage());
